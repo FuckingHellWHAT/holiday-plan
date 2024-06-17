@@ -1,0 +1,11 @@
+  h1 {
+    color: rgb(0, 0, 0);
+  
+    margin-right: 30px;
+
+    margin-top: 20px;
+  }
+
+.input-group-append {
+    cursor: pointer;
+  }
