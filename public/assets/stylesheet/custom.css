@@ -19,3 +19,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.form-check {
+  margin-left: 70px;
+}

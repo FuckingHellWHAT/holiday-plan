@@ -12,14 +12,27 @@ body {
   margin-right: 10px;
 
   margin-left: 10px;
+
+  orphans: 4;
+
+  widows: 2;
 }
 
 .reason {
   page-break-inside: avoid;
 }
 
-.col-sm-10 {
-  margin-left: 10px;
+fieldset {
+    page-break-inside: avoid;
+}
+
+.answer {
+    page-break-inside: avoid;
+}
+
+.container-hidden {
+    height: 200px;
+    width: 100%;
 }
 
 #submit {
@@ -28,10 +41,8 @@ body {
 
 h1 {
     color: rgb(0, 0, 0);
-  
-    margin-right: 30px;
 
-    margin-top: 20px;
+    margin-top: 30px;
 
     text-align: center;
 
@@ -41,3 +52,15 @@ h1 {
 .php {
     display: none;
 }
+
+.form-control {
+    border-color: #FFF;
+}
+
+.input-group-text-bg-light-d-block {
+    border-color: #FFF;
+}
+
+.form-check {
+    margin-left: 70px;
+  }

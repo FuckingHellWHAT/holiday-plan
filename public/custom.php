@@ -45,6 +45,32 @@ class Form
     $subject = 'Urlaubsantrag';
 
     $message = <<<TEXT
+<head> 
+<style>
+body {
+  background: #FFF;
+
+  color: #000;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  margin-right: 10px;
+
+  margin-left: 40px;
+  }
+
+pre {
+    font-family: Arial, Helvetica, sans-serif;
+
+    line-height: 1.2;
+  }
+
+i {
+  font-size: 12px;
+  }
+</style>
+</head>
+<body>
 <header>
     <center><h1>Urlaubsantrag</h1></center>
 </header>
@@ -81,6 +107,7 @@ Datum, Unterschrift Mitarbeiter
 $secondSignature
 Datum, Unterschrift Vorgesetzter
 </pre> <br>
+</body>
 TEXT;
 
     $headers = array(
@@ -139,7 +166,7 @@ TEXT;
       exit();
     }
 
-    if (empty($name)) {
+    if (isset($name) || empty($name) || !$name) {
       echo "<span class='php'>Insert wurde unterbrochen</span>";
     } else {
       $sql = "INSERT INTO `holiday` (`name`, `wann`, `till`, `paid`, `unpaid`, `last`, `current`, `taken`, `new`, `remaining`, `signature`)
