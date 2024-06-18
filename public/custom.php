@@ -118,7 +118,7 @@ TEXT;
       "Content-Type" => "text/html; charset=iso-8859-1"
     );
 
-    if (isset($name)) {
+    if (!isset($name)) {
       echo "<span class='php'>Bitte Informationen eingeben!!!!</span>";
     } else {
       echo "<span class='php'>Email wurde gesendet.</span>";
