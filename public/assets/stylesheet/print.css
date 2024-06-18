@@ -1,0 +1,43 @@
+.display {
+    display: block;
+}
+
+body {
+  background: #FFF;
+
+  color: #000;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  margin-right: 10px;
+
+  margin-left: 10px;
+}
+
+.reason {
+  page-break-inside: avoid;
+}
+
+.col-sm-10 {
+  margin-left: 10px;
+}
+
+#submit {
+  display: none;
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+  
+    margin-right: 30px;
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    font-weight: bold;
+  }
+
+.php {
+    display: none;
+}

@@ -4,16 +4,15 @@
   <title>Urlaubsantrag</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/assets/stylesheet/custom.css"></link>
+  <link rel="stylesheet" href="/assets/stylesheet/custom.css" media="screen"></link>
+  <link rel="stylesheet" href="/assets/stylesheet/print.css" media="print"></link>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
   <div class="menu">
 
   </div>
-<div class="container text-center">
-  <h1>Urlaubsantrag</h1>
-</div>
+<h1>Urlaubsantrag</h1>
 
 <form method="POST">
 <div class="container">
@@ -53,13 +52,13 @@
   <legend class="col-form-label col-sm-2 pt-0">Urlaubsart: </legend>
     <div class="col-sm-10">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="paid[]" id="paid" value="pAID">
+        <input class="form-check-input" type="checkbox" name="paid[]" id="paid" value="true">
         <label class="form-check-label" for="paid">
           bezahlter Urlaub
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="paid[]" id="unpaid" value="unpid">
+        <input class="form-check-input" type="checkbox" name="paid[]" id="unpaid" value="true">
         <label class="form-check-label" for="unpaid">
           unbezahlter Urlaub
         </label>
@@ -137,50 +136,52 @@
   </div>
 </fieldset>
 
-<p> </p>
-<div class="container text-center">
-  <div class="row">
-    <div class="col">
-      <hr> 
+<div class="display">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <hr> 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <i>wird vom Vorgesetzen ausgefüllt</i><br><br><br>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <i>wird vom Vorgesetzen ausgefüllt</i><br><br><br>
-    </div>
-  </div>
-</div>
-
-<fieldset class="row mb-3">
-  <legend class="col-form-label col-sm-2 pt-0">Der Urlaubsantrag wird: </legend>
-    <div class="col-sm-10">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="accepted" id="accepted" value="accepted">
-        <label class="form-check-label" for="accepted">
-          genehmigt
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="refused" id="refused" value="refused">
-        <label class="form-check-label" for="refused">
-          abgelehnt
-        </label>
-      </div>
-    </div><br><br><br>
-</fieldset>
-
-<label for="reason">Grund der Ablehnung: </label>
-<input type="text" class="form-control" id="reason" name="reason" placeholder="___________________________________________________"><br><br><br>
-
-<fieldset>
-  <div class="row">
-    <input type="text" class="form-control" id="secondSignature" name="secondSignature" placeholder="_________________________________________">
-    <div class="cal-6">
+  <fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-2 pt-0">
+        Der Urlaubsantrag wird:
+    </legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="accepted" id="accepted" value="true">
+          <label class="form-check-label" for="accepted">
+            genehmigt
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="refused" id="refused" value="true">
+          <label class="form-check-label" for="refused">
+            abgelehnt
+          </label>
+        </div>
+      </div><br><br><br>
+  </fieldset>
+  <fieldset class="reason">
+  <label for="reason">Grund der Ablehnung: </label>
+  <input type="text" class="form-control" id="reason" name="reason" placeholder="___________________________________________________"><br><br><br>
+  </fieldset>
+  <fieldset>
+    <div class="row">
+      <input type="text" class="form-control" id="secondSignature" name="secondSignature" placeholder="_________________________________________">
+      <div class="cal-6">
         Datum, Unterschrift Vorgesetzter
+      </div>
     </div>
-  </div>
-  <input type="submit" value="Submit">
-</fieldset>
+</div>
+    <input type="submit" value="Submit" id="submit">
+  </fieldset>
 
 </div>
 </form>
@@ -190,4 +191,11 @@
 <script src="assets/Javascript/custom.js"></script>
 </body>
 </html>
-<?php include ( $_SERVER['DOCUMENT_ROOT'] . '/custom.php' ) ?>
+<?php
+error_reporting(E_ERROR | E_PARSE);
+
+include ( $_SERVER['DOCUMENT_ROOT'] . '/custom.php' ); 
+
+  (new Form)->sendForm(); 
+
+?>
