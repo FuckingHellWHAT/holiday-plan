@@ -99,12 +99,12 @@ Datum, Unterschrift Mitarbeiter
 <br>
 <p> Der Urlaubsantrag wird: </p>
 <pre>
-                    genehmigt? $accepted
-                    abgelehnt? $refused
+                    genehmigt? 
+                    abgelehnt? 
 </pre> <br>
-<p>Grund der Ablehnung: $reason </p> <br>
+<p>Grund der Ablehnung: __________________________________________________ </p> <br>
 <pre> 
-$secondSignature
+________________________________________
 Datum, Unterschrift Vorgesetzter
 </pre> <br>
 </body>
@@ -118,11 +118,11 @@ TEXT;
       "Content-Type" => "text/html; charset=iso-8859-1"
     );
 
-    if (!isset($name)) {
-      echo "<span class='php'>Bitte Informationen eingeben!!!!</span>";
-    } else {
+    if (isset($name)) {
       echo "<span class='php'>Email wurde gesendet.</span>";
       mail($to, $subject, $message, $headers);
+    } else {
+      echo "<span class='php'>Bitte Informationen eingeben!!!!</span>";
     }
 
 
@@ -161,23 +161,65 @@ TEXT;
     $dbname = "db";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
+
     if ($conn->connect_errno) {
       echo "<span class='php'>Failed to connect to MySQL: </span>" . $conn->connect_error;
       exit();
     }
 
-    if (isset($name) || empty($name) || !$name) {
-      echo "<span class='php'>Insert wurde unterbrochen</span>";
-    } else {
+    if (isset($name)) {
       $sql = "INSERT INTO `holiday` (`name`, `wann`, `till`, `paid`, `unpaid`, `last`, `current`, `taken`, `new`, `remaining`, `signature`)
-      VALUES ($name, $when,  $till,  " . ($paid ?? 0) . ",  " . ($unpaid ?? 0) . ",  $last,  $current,  $taken,  $new,  $remaining,  $signature";
+      VALUES ($name, $when,  $till,  " . ($paid ?? 0) . ",  " . ($unpaid ?? 0) . ",  $last,  $current,  $taken,  $new,  $remaining,  $signature)";
 
       $result = $conn->query($sql);
 
       if ($result !== FALSE) {
         echo "<span class='php'>Daten wurden erfolgreich geupdated</span>";
       }
+
       $conn->close();
+
+    } else {
+      echo "<span class='php'>Insert wurde unterbrochen</span>";
     }
+  }
+
+  public function detailView($id) {
+    
+$servername = "db";
+$username = "db";
+$password = "db";
+$dbname = "db";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_errno) {
+    echo "<span class='php'>Failed to connect to MySQL: </span>" . $conn->connect_error;
+    exit();
+}
+
+foreach ($_GET as $key => $value) {
+    if (is_int($value)) {
+      $$key = $value ?? 0;
+  } elseif (is_string($value)) {
+    $$key = "'" . ($value ?? '') . "'";
+  }
+}
+
+$sql = "SELECT * FROM holiday WHERE person_id=$person";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $arrayResult[] = $row; 
+    }
+    echo "</tbody> </table></body>";
+} else {
+    echo "0 results";
+}
+
+$conn->close(); 
+  return $arrayResult[0]; 
   }
 }

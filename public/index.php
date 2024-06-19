@@ -17,7 +17,7 @@
 
   </div>
   <h1>Urlaubsantrag</h1>
-
+  <a href="list.php?liste">Hier geht es zur Liste</a>
   <form method="POST">
     <div class="container">
       <label for="name">Name: </label>

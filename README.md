@@ -34,7 +34,8 @@ Link funktioniert anscheinend nicht oder fehler im HTML
 ## Email
 irgendwie auf die einzelnden Variablen(?) in $_POST zugreifen
 > hat geklappt :D
-> funktioniert nicht mehr
+>... funktioniert nicht mehr
+>FUNKTIONIERT!!
 
 ## HTML in Email
 Musste MIME version und Content Type hinzufügen um $message mit HTML zu gestalten
