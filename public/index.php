@@ -17,11 +17,10 @@
 
   </div>
   <h1>Urlaubsantrag</h1>
-  <a href="list.php?liste">Hier geht es zur Liste</a>
   <form method="POST">
     <div class="container">
       <label for="name">Name: </label>
-      <input type="text" class="form-control" id="name" name="name" placeholder="_________________________________________"><br><br>
+      <input type="text" class="form-control" id="name" name="name" placeholder="_________________________________________" /><br><br>
 
       <div class="container">
         <div class="row">
@@ -56,13 +55,13 @@
         <legend class="col-form-label col-md-2 pt-0">Urlaubsart: </legend>
         <div class="col-sm-10">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="paid[]" id="paid" value="true">
+            <input class="form-check-input" type="checkbox" name="paid" id="paid" value="paid">
             <label class="form-check-label" for="paid">
               bezahlter Urlaub
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="paid[]" id="unpaid" value="true">
+            <input class="form-check-input" type="checkbox" name="unpaid" id="unpaid" value="unpaid">
             <label class="form-check-label" for="unpaid">
               unbezahlter Urlaub
             </label>
@@ -186,9 +185,10 @@
               </div>
             </div>
       </div>
-      <input type="submit" value="Submit" id="submit">
+      <input type="submit" value="Submit" id="submit"><br><br>
       </fieldset>
       </fieldset>
+      <a href="list.php?Liste">Hier geht es zur Liste</a>
 
     </div>
   </form>

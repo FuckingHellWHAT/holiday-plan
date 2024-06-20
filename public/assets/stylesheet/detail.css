@@ -15,10 +15,46 @@ body {
 
     text-align: center;
 
-    
+    text-transform: uppercase;
   }
 
   table, th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid black; 
+   } 
+
+  table {
+    width: 100% ; 
+  }
+
+  td:nth-child(even) {
+    background-color: #f2f2f2;;
+}
+
+  th:nth-child(even) {
+    background-color:  rgb(96, 1, 221);
+  }
+
+  td, th {
+     border: 1px solid #ddd ; 
+     padding: 8px ; 
+    }
+
+  th {
+     padding-top: 12px ; 
+
+     padding-bottom: 12px ; 
+
+     text-align: left ; 
+
+     background-color: rgb(111, 0, 255); 
+
+     color: white; 
+    }
+
+    table {
+      caption-side: bottom;
+
+      border-collapse: separate;
+
+      border-color: #ddd;
   }

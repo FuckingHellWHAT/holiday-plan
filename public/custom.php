@@ -27,18 +27,11 @@ class Form
       if (is_int($value)) {
         $$key = $value ?? 0;
       } elseif (is_string($value)) {
-        $$key = "'" . ($value ?? '') . "'";
+        $$key = $value ?? '';
       }
     }
 
-    $content = '';
-    foreach ($_POST as $key => $value) {
-      if (is_int($value)) {
-        $content .= $key . ':' . (trim($value) ?? 0) . '<br>';
-      } elseif (is_string($value)) {
-        $content .= $key . ':' . ($value ?? '') . "<br>";
-      }
-    }
+
 
     //email
     $to      = 'nobody@example.com';
@@ -118,29 +111,21 @@ TEXT;
       "Content-Type" => "text/html; charset=iso-8859-1"
     );
 
-    if (isset($name)) {
-      echo "<span class='php'>Email wurde gesendet.</span>";
+    if (isset($name) && $name !== '') {
+      echo "<span class='php'>Email wurde gesendet. </span>";
       mail($to, $subject, $message, $headers);
     } else {
-      echo "<span class='php'>Bitte Informationen eingeben!!!!</span>";
+      echo "<span class='php'>Bitte Informationen eingeben!!!! </span>";
     }
 
-
-
     if (($paid ?? '') !== '' && ($unpaid ?? '') === '') {
-      $unpaid = 'false';
+      echo '';
     } elseif (($paid ?? '') === '' && ($unpaid ?? '') !== '') {
-      $paid = 'false';
+      echo '';
     } elseif (($paid ?? '') !== '' && ($unpaid ?? '') !== '') {
       echo "Bitte nur bezahlt ODER unbezahlt eingeben! ";
-    } elseif (($accepted ?? '') !== '' && ($refused ?? '') === '') {
-      $refused = 'false';
-    } elseif (($accepted ?? '') === '' && ($refused ?? '') !== '') {
-      $accepted = 'false';
-    } elseif (($accepted ?? '') !== '' && ($refused ?? '') !== '') {
-      echo "<span class='php'>Bitte nur genehmigt ODER abgelehnt eingeben! </span>";
-    } else {
-      echo "<span class='php'>Bitte alle informationen angeben! </span>";
+    } elseif (($paid ?? '') === '' && ($unpaid ?? '') === '') {
+      echo "<span class='php'> Bezahlt oder Unbezahlt bitte nicht vergessen! </span>";
     }
 
     $this->connectDatabase($_POST);
@@ -167,59 +152,96 @@ TEXT;
       exit();
     }
 
-    if (isset($name)) {
+    if (isset($name) && $name !== '') {
       $sql = "INSERT INTO `holiday` (`name`, `wann`, `till`, `paid`, `unpaid`, `last`, `current`, `taken`, `new`, `remaining`, `signature`)
       VALUES ($name, $when,  $till,  " . ($paid ?? 0) . ",  " . ($unpaid ?? 0) . ",  $last,  $current,  $taken,  $new,  $remaining,  $signature)";
 
       $result = $conn->query($sql);
 
       if ($result !== FALSE) {
-        echo "<span class='php'>Daten wurden erfolgreich geupdated</span>";
+        echo "<span class='php'> Daten wurden erfolgreich geupdated</span>";
       }
 
       $conn->close();
-
     } else {
       echo "<span class='php'>Insert wurde unterbrochen</span>";
     }
   }
 
-  public function detailView($id) {
-    
-$servername = "db";
-$username = "db";
-$password = "db";
-$dbname = "db";
+  public function detailView($id)
+  {
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+    $servername = "db";
+    $username = "db";
+    $password = "db";
+    $dbname = "db";
 
-if ($conn->connect_errno) {
-    echo "<span class='php'>Failed to connect to MySQL: </span>" . $conn->connect_error;
-    exit();
-}
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-foreach ($_GET as $key => $value) {
-    if (is_int($value)) {
-      $$key = $value ?? 0;
-  } elseif (is_string($value)) {
-    $$key = "'" . ($value ?? '') . "'";
-  }
-}
-
-$sql = "SELECT * FROM holiday WHERE person_id=$person";
-
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $arrayResult[] = $row; 
+    if ($conn->connect_errno) {
+      echo "<span class='php'>Failed to connect to MySQL: </span>" . $conn->connect_error;
+      exit();
     }
-    echo "</tbody> </table></body>";
-} else {
-    echo "0 results";
-}
 
-$conn->close(); 
-  return $arrayResult[0]; 
+    foreach ($_GET as $key => $value) {
+      if (is_int($value)) {
+        $$key = $value ?? 0;
+      } elseif (is_string($value)) {
+        $$key = "'" . ($value ?? '') . "'";
+      }
+    }
+
+    $sql = "SELECT * FROM holiday WHERE person_id=$person";
+
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $arrayResult[] = $row;
+      }
+    } else {
+      echo "0 results";
+    }
+
+    $conn->close();
+    return $arrayResult[0];
+  }
+
+  // - could go with SELECT name FROM holiday?? What am I doing?? I'm trying to somehow access $row in list.php with a function and I'm dying inside lol
+  public function versuchListe($valu)
+  {
+
+    foreach ($_GET as $key => $value) {
+      if (is_int($value)) {
+        $$key = $value ?? 0;
+      } elseif (is_string($value)) {
+        $$key = "'" . ($value ?? '') . "'";
+      }
+    }
+
+    $servername = "db";
+    $username = "db";
+    $password = "db";
+    $dbname = "db";
+    
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    if ($conn->connect_errno) {
+        echo "<span class='php'>Failed to connect to MySQL: </span>" . $conn->connect_error;
+        exit();
+    }
+    
+    $sql = "SELECT * FROM holiday";
+    
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+      }
+    } else {
+      echo "0 results";
+    }
+
+    $conn->close();
   }
 }
